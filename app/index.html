@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+</head>
+<body>
+{{ template "header" . }}
+<div class="contents">
+    <p>{{.Message}}</p>
+    <p>{{.Time.Format "2006/1/2 15:04:05"}}</p>
+    <p>ユーザー</p>
+    <ul>
+        {{ range $user := .Users }}
+        <li>id: {{ $user.ID }}, name: {{ $user.Name }}, token: {{ $user.Token }}</li>
+        {{ end }}
+    </ul>
+    <p>キャラ</p>
+    <ul>
+        {{ range $char := .Chara }}
+        <li>id: {{ $char.ID }}, name: {{ $char.Name }}, rarity_id: {{ $char.RarityId }}</li>
+        {{ end }}
+    </ul>
+    <p>レア度</p>
+    <ul>
+        {{ range $rarity := .Rarities }}
+        <li>id: {{ $rarity.ID }}, name: {{ $rarity.Name }}, token: {{ $rarity.Probability }}</li>
+        {{ end }}
+    </ul>
+</div>
+{{ template "footer" }}
+</body>
+</html>
