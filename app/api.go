@@ -12,6 +12,7 @@ import (
 	"log"
 	"net/http"
 	"go-gatcha/app/config"
+	"go-gatcha/app/error"
 	"go-gatcha/app/token"
 )
 
@@ -95,7 +96,8 @@ func create(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.Write(res)
 		fmt.Fprintf(w, "POST method create() called: %v\n", user)
 	default:
-		fmt.Fprint(w, "Method not allowed\n")
+		//fmt.Fprint(w, "Method not allowed\n")
+		w = error.StatusCode405(w)
 	}
 }
 func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
@@ -137,7 +139,8 @@ func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		*/
 		fmt.Fprintf(w, "GET method get() called\n")
 	default:
-		fmt.Fprint(w, "Method not allowed\n")
+		//fmt.Fprint(w, "Method not allowed\n")
+		w = error.StatusCode405(w)
 	}
 }
 func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
@@ -166,11 +169,15 @@ func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 
 		fmt.Fprintf(w, "PUT method update() called\n")
 	default:
-		fmt.Fprint(w, "Method not allowed\n")
+		//fmt.Fprint(w, "Method not allowed\n")
+		w = error.StatusCode405(w)
 	}
 }
 func main() {
+	/**
+	// 多分packageと干渉している
 	var err error
+	*/
 	log.Printf("Server listening on http://localhost:%s", config.Config.Port)
 	db, err := sql.Open(config.Config.DriverName, config.Config.DataSourceName)
 	if err != nil {
