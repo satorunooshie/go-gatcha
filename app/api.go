@@ -8,7 +8,7 @@ import (
 	_"github.com/go-sql-driver/mysql"
 	_"github.com/google/uuid"
 	"time"
-	//jwt "github.com/dgrijalva/jwt-go"
+	// jwt "github.com/dgrijalva/jwt-go"
 	"io"
 	"log"
 	"net/http"
@@ -40,9 +40,9 @@ func getUuid() uuid.UUID {
 }
  */
 /**
-	//tokenがjwtによるbase64urlEncoding(header) + '.' + base64urlEncoding(payload) + '.' + base64urlEncoding(signature)になっている
-	//DBにtokenとして保存するならjwt認証の意味は薄い(ユーザーの情報を詰める必要はないし、さらに負荷がかかるので)
-	//tokenをuuidにして、app/tokenに移植した
+	// tokenがjwtによるbase64urlEncoding(header) + '.' + base64urlEncoding(payload) + '.' + base64urlEncoding(signature)になっている
+	// DBにtokenとして保存するならjwt認証の意味は薄い(ユーザーの情報を詰める必要はないし、さらに負荷がかかるので)
+	// tokenをuuidにして、app/tokenに移植した
 func issueToken(user User) (string, error) {
 	var err error
 	secret := "secret"
@@ -104,8 +104,10 @@ func create(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.Write(res)
 		fmt.Fprintf(w, "POST method create() called: %v\n", user)
 	default:
-		//fmt.Fprint(w, "Method not allowed\n")
-		w = error.StatusCode405(w)
+		// fmt.Fprint(w, "Method not allowed\n")
+		// replace original status code with default function
+		// w = error.StatusCode405(w)
+		error.StatusCode405(w)
 	}
 }
 func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
@@ -147,8 +149,10 @@ func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		*/
 		fmt.Fprintf(w, "GET method get() called\n")
 	default:
-		//fmt.Fprint(w, "Method not allowed\n")
-		w = error.StatusCode405(w)
+		// fmt.Fprint(w, "Method not allowed\n")
+		// replace original status code with default function
+		// w = error.StatusCode405(w)
+		error.StatusCode405(w)
 	}
 }
 func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
@@ -177,8 +181,10 @@ func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 
 		fmt.Fprintf(w, "PUT method update() called\n")
 	default:
-		//fmt.Fprint(w, "Method not allowed\n")
-		w = error.StatusCode405(w)
+		// fmt.Fprint(w, "Method not allowed\n")
+		// replace original status code with default function
+		// w = error.StatusCode405(w)
+		error.StatusCode405(w)
 	}
 }
 func main() {
