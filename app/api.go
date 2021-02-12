@@ -7,6 +7,7 @@ import (
 	"fmt"
 	_"github.com/go-sql-driver/mysql"
 	_"github.com/google/uuid"
+	"time"
 	//jwt "github.com/dgrijalva/jwt-go"
 	"io"
 	"log"
@@ -16,6 +17,13 @@ import (
 	"go-gatcha/app/token"
 )
 
+type M_User struct {
+	ID int `db:"id"`
+	Name string `db:"name"`
+	Token string `db:"token"`
+	CreatedAt time.Time `db:"created_at"`
+	UpdatedAt time.Time `db:"updated_at"`
+}
 type User struct {
 	Name string `json:"name"`
 }
