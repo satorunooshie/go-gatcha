@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"go-gatcha/app/config"
 )
 
 type User struct {
@@ -33,10 +34,6 @@ type Embed struct {
 	Rarities map[int]Rarity
 	Time time.Time
 }
-const (
-	DriverName = "mysql"
-	DataSourceName = "root:golang@tcp(localhost:3306)/golang_db"
-)
 var usr = make(map[int]User)
 var rarity = make(map[int]Rarity)
 var char = make(map[int]Chara)
@@ -63,7 +60,7 @@ func loadTemplate(name string) *template.Template {
 
 func main() {
 	// database connection
-	db, dbErr := sql.Open(DriverName, DataSourceName)
+	db, dbErr := sql.Open(config.Config.DriverName, config.Config.DataSourceName)
 	if dbErr != nil {
 		log.Print("error connencting to database :", dbErr)
 	}
@@ -87,9 +84,8 @@ func main() {
 		}
 	}
 	// Web server
-	port := "7777"
 	templates["index"] = loadTemplate("index")
 	http.HandleFunc("/", handleIndex)
-	log.Printf("Server listening on http://localhost:%s", port)
-	log.Print(http.ListenAndServe(":" + port, nil))
+	log.Printf("Server listening on http://localhost:%s", config.Config.Port)
+	log.Print(http.ListenAndServe(":" + config.Config.Port, nil))
 }
