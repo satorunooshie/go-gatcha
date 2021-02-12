@@ -1,8 +1,6 @@
 package error
 
 import (
-	"encoding/json"
-	"log"
 	"net/http"
 )
 
@@ -10,6 +8,8 @@ type Message struct {
 	Message string `json:"message"`
 }
 
+func StatusCode405(w http.ResponseWriter) {
+	/*
 func StatusCode405(w http.ResponseWriter) http.ResponseWriter {
 	// generate json message for response
 	m := Message{"method not allowed"}
@@ -20,4 +20,7 @@ func StatusCode405(w http.ResponseWriter) http.ResponseWriter {
 	w.WriteHeader(http.StatusMethodNotAllowed)
 	w.Write(res)
 	return w
+	 */
+	w.WriteHeader(http.StatusMethodNotAllowed)
+	w.Write([]byte(http.StatusText(http.StatusMethodNotAllowed)))
 }
