@@ -15,7 +15,6 @@ import (
 	"go-gatcha/app/config"
 )
 
-var db *sql.DB
 type User struct {
 	Name string `json:"name"`
 }
@@ -56,7 +55,7 @@ func issueToken(user User) (string, error) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "This is handler\n")
 }
-func create(w http.ResponseWriter, r *http.Request) {
+func create(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	switch r.Method {
 	case "POST":
 		body := r.Body
@@ -96,7 +95,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Method not allowed\n")
 	}
 }
-func get(w http.ResponseWriter, r *http.Request) {
+func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	switch r.Method {
 	case "GET":
 		// get request header
@@ -138,7 +137,7 @@ func get(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Method not allowed\n")
 	}
 }
-func update(w http.ResponseWriter, r *http.Request) {
+func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	switch r.Method {
 	case "PUT":
 		// get request
@@ -170,15 +169,27 @@ func update(w http.ResponseWriter, r *http.Request) {
 func main() {
 	var err error
 	log.Printf("Server listening on http://localhost:%s", config.Config.Port)
-	db, err = sql.Open(config.Config.DriverName, config.Config.DataSourceName)
+	db, err := sql.Open(config.Config.DriverName, config.Config.DataSourceName)
 	if err != nil {
 		panic(err.Error())
 	}
 	defer db.Close()
 
 	http.HandleFunc("/", handler)
+	/*
+	// var db *sql.DBを引数に持たすことでこれらは作用しなくなる
 	http.HandleFunc("/user/create", create)
 	http.HandleFunc("/user/get", get)
 	http.HandleFunc("/user/update", update)
+	 */
+	http.HandleFunc("/user/create", func(w http.ResponseWriter, r *http.Request) {
+		create(w, r, db)
+	})
+	http.HandleFunc("/user/get", func(w http.ResponseWriter, r *http.Request) {
+		get(w, r, db)
+	})
+	http.HandleFunc("/user/update", func(w http.ResponseWriter, r *http.Request) {
+		update(w, r, db)
+	})
 	log.Print(http.ListenAndServe(":" + config.Config.Port, nil))
 }
