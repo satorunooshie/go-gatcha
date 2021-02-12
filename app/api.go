@@ -12,14 +12,10 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"go-gatcha/app/config"
 )
 
 var db *sql.DB
-// FIXME: call from config
-const (
-	DriverName = "mysql"
-	DataSourceName = "root:golang@tcp(localhost:3306)/golang_db"
-)
 type User struct {
 	Name string `json:"name"`
 }
@@ -173,9 +169,8 @@ func update(w http.ResponseWriter, r *http.Request) {
 }
 func main() {
 	var err error
-	port := "7777"
-	log.Printf("Server listening on http://localhost:%s", port)
-	db, err = sql.Open(DriverName, DataSourceName)
+	log.Printf("Server listening on http://localhost:%s", config.Config.Port)
+	db, err = sql.Open(config.Config.DriverName, config.Config.DataSourceName)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -185,5 +180,5 @@ func main() {
 	http.HandleFunc("/user/create", create)
 	http.HandleFunc("/user/get", get)
 	http.HandleFunc("/user/update", update)
-	log.Print(http.ListenAndServe(":" + port, nil))
+	log.Print(http.ListenAndServe(":" + config.Config.Port, nil))
 }
