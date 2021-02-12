@@ -6,13 +6,13 @@ import (
 	"encoding/json"
 	"fmt"
 	_"github.com/go-sql-driver/mysql"
-	"github.com/google/uuid"
 	_"github.com/google/uuid"
-	jwt "github.com/dgrijalva/jwt-go"
+	//jwt "github.com/dgrijalva/jwt-go"
 	"io"
 	"log"
 	"net/http"
 	"go-gatcha/app/config"
+	"go-gatcha/app/token"
 )
 
 type User struct {
@@ -21,9 +21,7 @@ type User struct {
 type Token struct {
 	Token string `json:"token"`
 }
-type ErrorMessage struct {
-	Message string `json:"message"`
-}
+/**
 func getUuid() uuid.UUID {
 	u, err := uuid.NewRandom()
 	if err != nil {
@@ -31,11 +29,11 @@ func getUuid() uuid.UUID {
 	}
 	return u
 }
-/**
-	TODO: tokenをuuidにするか、廃止する
-		  tokenがjwtによるbase64urlEncoding(header) + '.' + base64urlEncoding(payload) + '.' + base64urlEncoding(signature)になっている
-		  DBにtokenとして保存するならjwt認証の意味は薄い(ユーザーの情報を詰める必要はないし、さらに負荷がかかるので)
  */
+/**
+	//tokenがjwtによるbase64urlEncoding(header) + '.' + base64urlEncoding(payload) + '.' + base64urlEncoding(signature)になっている
+	//DBにtokenとして保存するならjwt認証の意味は薄い(ユーザーの情報を詰める必要はないし、さらに負荷がかかるので)
+	//tokenをuuidにして、app/tokenに移植した
 func issueToken(user User) (string, error) {
 	var err error
 	secret := "secret"
@@ -52,6 +50,7 @@ func issueToken(user User) (string, error) {
 	}
 	return tokenString, nil
 }
+ */
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "This is handler\n")
 }
@@ -70,10 +69,14 @@ func create(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 			log.Fatal(err)
 		}
 
+		// tokenとしてuuidを作成
+		token := token.IssueToken()
+		/**
 		token, err := issueToken(user)
 		if err != nil {
 			log.Fatal(err)
 		}
+		 */
 
 		// Exec method is for without getting records
 		_, err = db.Exec("INSERT INTO users(name, token) VALUES(?, ?)", user.Name, token)
