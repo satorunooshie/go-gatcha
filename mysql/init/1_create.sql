@@ -22,6 +22,11 @@ CREATE TABLE IF NOT EXISTS chara (
 );
 
 INSERT INTO
+    users
+VALUES
+(1, "username", "secret");
+
+INSERT INTO
     rarities
 VALUES
 (1, "SSR", 0.01),
