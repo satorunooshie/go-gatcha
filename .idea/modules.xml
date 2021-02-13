@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/go-gatcha.iml" filepath="$PROJECT_DIR$/.idea/go-gatcha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/go-gacha.iml" filepath="$PROJECT_DIR$/.idea/go-gacha.iml" />
     </modules>
   </component>
 </project>
