@@ -6,3 +6,5 @@
 ```docker-compose exec mysql mysql -u root -p```
 
 https://editor.swagger.io/
+
+https://app.quickdatabasediagrams.com/
