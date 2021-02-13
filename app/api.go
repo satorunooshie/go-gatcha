@@ -118,7 +118,8 @@ func create(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		// fmt.Fprint(w, "Method not allowed\n")
 		// replace original status code with default function
 		// w = error.StatusCode405(w)
-		error.StatusCode405(w)
+		//error.StatusCode405(w)
+		error.ErrorResponse(w, http.StatusMethodNotAllowed)
 	}
 }
 func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
@@ -163,7 +164,8 @@ func get(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		// fmt.Fprint(w, "Method not allowed\n")
 		// replace original status code with default function
 		// w = error.StatusCode405(w)
-		error.StatusCode405(w)
+		//error.StatusCode405(w)
+		error.ErrorResponse(w, http.StatusMethodNotAllowed)
 	}
 }
 func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
@@ -205,7 +207,8 @@ func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		// fmt.Fprint(w, "Method not allowed\n")
 		// replace original status code with default function
 		// w = error.StatusCode405(w)
-		error.StatusCode405(w)
+		//error.StatusCode405(w)
+		error.ErrorResponse(w, http.StatusMethodNotAllowed)
 	}
 }
 func main() {
