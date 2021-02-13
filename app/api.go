@@ -87,10 +87,21 @@ func create(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		}
 		 */
 
+		// transaction start
+		trn, trnErr := db.Begin()
+		if trnErr != nil {
+			log.Fatal(trnErr)
+		}
+
 		// Exec method is for without getting records
-		_, err = db.Exec("INSERT INTO users(name, token) VALUES(?, ?)", user.Name, token)
-		if err != nil {
-			log.Fatal(err)
+		_, exeErr := db.Exec("INSERT INTO users(name, token) VALUES(?, ?)", user.Name, token)
+		if exeErr != nil {
+			_ = trn.Rollback()
+			log.Fatal(exeErr)
+		}
+		trnErr = trn.Commit()
+		if trnErr != nil {
+			log.Fatal(trnErr)
 		}
 
 		// for response
@@ -171,10 +182,20 @@ func update(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		var user User
 		json.Unmarshal(buf.Bytes(), &user)
 
+		// transaction start
+		trn, trnErr := db.Begin()
+		if trnErr != nil {
+			log.Fatal(trnErr)
+		}
 		// update user name by token
-		_, err := db.Exec("UPDATE users SET name = ? WHERE token = ?", user.Name, header.Get("x-token"))
-		if err != nil {
-			log.Fatal(err)
+		_, exeErr := db.Exec("UPDATE users SET name = ? WHERE token = ?", user.Name, header.Get("x-token"))
+		if exeErr != nil {
+			_ = trn.Rollback()
+			log.Fatal(exeErr)
+		}
+		trnErr = trn.Commit()
+		if trnErr != nil {
+			log.Fatal(trnErr)
 		}
 
 		w.WriteHeader(http.StatusOK)
