@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"go-gatcha/app/config"
+	"go-gacha/app/config"
 	"log"
 )
 

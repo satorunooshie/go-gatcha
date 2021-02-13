@@ -1,4 +1,4 @@
-package gatcha
+package gacha
 
 import (
 	"database/sql"

@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 	"time"
-	"go-gatcha/app/config"
+	"go-gacha/app/config"
 )
 
 type User struct {

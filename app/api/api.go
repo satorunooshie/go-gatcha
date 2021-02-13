@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"go-gatcha/app/api/handler/gatcha"
-	"go-gatcha/app/api/handler/user"
-	"go-gatcha/app/config"
-	"go-gatcha/app/db"
+	"go-gacha/app/api/handler/gacha"
+	"go-gacha/app/api/handler/user"
+	"go-gacha/app/config"
+	"go-gacha/app/db"
+
 	// jwt "github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
@@ -29,8 +30,8 @@ func main() {
 	http.HandleFunc("/user/update", func(w http.ResponseWriter, r *http.Request) {
 		user.Update(w, r, db)
 	})
-	http.HandleFunc("/gatcha/draw", func(w http.ResponseWriter, r *http.Request) {
-		gatcha.Draw(w, r, db)
+	http.HandleFunc("/gacha/draw", func(w http.ResponseWriter, r *http.Request) {
+		gacha.Draw(w, r, db)
 	})
 	log.Print(http.ListenAndServe(":" + config.Config.Port, nil))
 }
