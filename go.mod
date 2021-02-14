@@ -1,4 +1,4 @@
-module go-gacha
+module gacha
 
 go 1.15
 

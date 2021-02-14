@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS chara (
 );
 
 INSERT INTO
-    users
+    users (name, token)
 VALUES
-(1, "username", "secret");
+("username", "secret");
 
 INSERT INTO
     rarities
@@ -36,17 +36,17 @@ VALUES
 INSERT INTO
     chara (name, rarity_id)
 VALUES
-    ("super1", 1),
-    ("super2", 1),
-    ("frequest1", 2),
-    ("frequent2", 2),
-    ("frequent3", 2),
-    ("frequent4", 2),
-    ("common1", 3),
-    ("common2", 3),
-    ("common3", 3),
-    ("common4", 3),
-    ("common5", 3),
-    ("common6", 3),
-    ("common7", 3),
-    ("common8", 3);
+("super1", 1),
+("super2", 1),
+("frequent1", 2),
+("frequent2", 2),
+("frequent3", 2),
+("frequent4", 2),
+("common1", 3),
+("common2", 3),
+("common3", 3),
+("common4", 3),
+("common5", 3),
+("common6", 3),
+("common7", 3),
+("common8", 3);

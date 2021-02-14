@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"go-gacha/app/api/handler/gacha"
-	"go-gacha/app/api/handler/user"
-	"go-gacha/app/config"
-	"go-gacha/app/db"
+	"gacha/app/api/handler/gacha"
+	"gacha/app/api/handler/user"
+	"gacha/app/config"
+	"gacha/app/db"
 
 	// jwt "github.com/dgrijalva/jwt-go"
 	"log"
