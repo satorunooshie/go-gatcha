@@ -1,4 +1,4 @@
-# go-gatcha
+# go-gacha
 ```docker-compose exec mysql bash```
 
 ```docker-compose exec mysql mysql --version```
