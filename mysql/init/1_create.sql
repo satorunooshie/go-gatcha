@@ -38,7 +38,7 @@ INSERT INTO
 VALUES
 ("super1", 1),
 ("super2", 1),
-("frequest1", 2),
+("frequent1", 2),
 ("frequent2", 2),
 ("frequent3", 2),
 ("frequent4", 2),
